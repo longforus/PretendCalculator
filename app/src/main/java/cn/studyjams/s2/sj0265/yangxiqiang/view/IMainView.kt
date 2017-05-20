@@ -1,5 +1,6 @@
 package cn.studyjams.s2.sj0265.yangxiqiang.view
 
+import cn.studyjams.s2.sj0265.yangxiqiang.adapter.BtnAdapter
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.IMainPresenter
 
 /**
@@ -7,5 +8,6 @@ import cn.studyjams.s2.sj0265.yangxiqiang.presenter.IMainPresenter
  * Description :
  */
 interface IMainView:IVIew<IMainPresenter> {
-
+	fun setAdapter(adapter : BtnAdapter)
+	
 }
