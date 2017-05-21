@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.widget.TextView
 import cn.studyjams.s2.sj0265.yangxiqiang.R
 import cn.studyjams.s2.sj0265.yangxiqiang.adapter.BtnAdapter
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.IMainPresenter
@@ -13,7 +14,13 @@ import cn.studyjams.s2.sj0265.yangxiqiang.view.IMainView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), IMainView {
-	override fun getRv(): RecyclerView {
+	var tvArr : Array<TextView>? = null
+	
+	override fun showText(pos : Int, toString : String) {
+		tvArr?.get(pos)?.text = toString
+	}
+	
+	override fun getRv() : RecyclerView {
 		return findViewById(R.id.rv_btns) as RecyclerView
 	}
 	
@@ -29,7 +36,8 @@ class MainActivity : AppCompatActivity(), IMainView {
 	override fun onCreate(savedInstanceState : Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
-		presenter   = 	MainPresenter(this@MainActivity)
+		presenter = MainPresenter(this@MainActivity)
+		tvArr = arrayOf(tv1, tv2, tv3)
 	}
 	
 }

@@ -11,4 +11,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.presenter.IMainPresenter
 interface IMainView:IVIew<IMainPresenter> {
 	fun setAdapter(adapter : BtnAdapter)
 	fun getRv():RecyclerView
+	fun showText(pos:Int,toString : String)
 }

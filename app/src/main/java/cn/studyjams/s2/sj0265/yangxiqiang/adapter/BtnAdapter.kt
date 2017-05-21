@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_main.view.*
  */
 class BtnAdapter(val context : Context, var dataList : List<MainBean>, val itemHeight : Int) : RecyclerView.Adapter<ViewHolder>() {
 	val TAG = "BtnAdapter"
-	
+	var onClickListener: OnItemClickListener? = null
 	override fun onCreateViewHolder(parent : ViewGroup?, viewType : Int) : ViewHolder {
 		val view = LayoutInflater.from(context).inflate(R.layout.item_main, parent, false)
 		if (itemHeight >0) {
@@ -27,6 +27,7 @@ class BtnAdapter(val context : Context, var dataList : List<MainBean>, val itemH
 	}
 	
 	override fun onBindViewHolder(holder : ViewHolder?, position : Int) {
+		holder?.itemView?.setOnClickListener({onClickListener?.onItemClick(holder,dataList[position],position)})
 		holder?.bind(dataList[position], position)
 	}
 	
@@ -38,6 +39,12 @@ class BtnAdapter(val context : Context, var dataList : List<MainBean>, val itemH
 		return	if (dataList[position].imgId==R.mipmap.btn_pad_equal_n) 1 else super.getItemViewType(position)
 	}
 	
+	
+}
+
+
+interface OnItemClickListener{
+	fun onItemClick(holder : ViewHolder?, bean : MainBean, position : Int)
 }
 
 class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {

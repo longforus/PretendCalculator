@@ -14,7 +14,7 @@
       android:background="@color/colorPrimaryDark"
       >
     <TextView
-        android:id="@+id/tv1"
+        android:id="@+id/tv3"
         android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         android:textSize="24sp"
         />
     <TextView
-        android:id="@+id/tv3"
+        android:id="@+id/tv1"
         android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
