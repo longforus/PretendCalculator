@@ -16,10 +16,14 @@ class MainPresenter(override var view : IMainView) :IMainPresenter{
 		get() =   MainModel()
 		set(value) {}
 	
-	var adapter:BtnAdapter
+	var adapter:BtnAdapter? = null
 	init {
 //		model = MainModel()
-		adapter = BtnAdapter(view as Context,model.getMainList())
-		view.setAdapter(adapter)
+		view.getRv().post({
+			val itemHeight = view.getRv().height / 5
+			adapter = BtnAdapter(view as Context,model.getMainList(),itemHeight)
+			view.setAdapter(adapter as BtnAdapter)
+		})
+		
 	}
 }

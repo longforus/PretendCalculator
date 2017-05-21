@@ -13,10 +13,17 @@ import kotlinx.android.synthetic.main.item_main.view.*
  * Created by XQ Yang on 2017/5/18  20:02.
  * Description :
  */
-class BtnAdapter(val context : Context, var dataList : List<MainBean>) : RecyclerView.Adapter<ViewHolder>() {
+class BtnAdapter(val context : Context, var dataList : List<MainBean>, val itemHeight : Int) : RecyclerView.Adapter<ViewHolder>() {
+	val TAG = "BtnAdapter"
 	
 	override fun onCreateViewHolder(parent : ViewGroup?, viewType : Int) : ViewHolder {
-		return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_main, parent, false))
+		val view = LayoutInflater.from(context).inflate(R.layout.item_main, parent, false)
+		if (itemHeight >0) {
+		val params = view.layoutParams
+			params.height =if (viewType==1)  itemHeight*2 else itemHeight
+			view.layoutParams = params
+		}
+		return ViewHolder(view)
 	}
 	
 	override fun onBindViewHolder(holder : ViewHolder?, position : Int) {
@@ -26,6 +33,11 @@ class BtnAdapter(val context : Context, var dataList : List<MainBean>) : Recycle
 	override fun getItemCount() : Int {
 		return dataList.size
 	}
+	
+	override fun getItemViewType(position : Int) : Int {
+		return	if (dataList[position].imgId==R.mipmap.btn_pad_equal_n) 1 else super.getItemViewType(position)
+	}
+	
 }
 
 class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {

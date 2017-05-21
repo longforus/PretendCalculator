@@ -1,5 +1,6 @@
 package cn.studyjams.s2.sj0265.yangxiqiang.view
 
+import android.support.v7.widget.RecyclerView
 import cn.studyjams.s2.sj0265.yangxiqiang.adapter.BtnAdapter
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.IMainPresenter
 
@@ -9,5 +10,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.presenter.IMainPresenter
  */
 interface IMainView:IVIew<IMainPresenter> {
 	fun setAdapter(adapter : BtnAdapter)
-	
+	fun getRv():RecyclerView
 }
