@@ -56,7 +56,7 @@ class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
 		} else {
 			itemView.iv.visibility = View.GONE
 			itemView.tv.visibility = View.VISIBLE
-			itemView.tv.text = bean.num.toString()
+			itemView.tv.text =if (bean.num==-130) "." else bean.num.toString()
 		}
 		if (bean.backColor != 0) {
 			itemView.setBackgroundColor(bean.backColor)

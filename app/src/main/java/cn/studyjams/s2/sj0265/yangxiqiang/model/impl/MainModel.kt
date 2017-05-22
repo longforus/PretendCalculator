@@ -33,7 +33,7 @@ class MainModel : IMainModel {
 		list+= bean
 		list+=MainBean(R.mipmap.btn_pad_percent_n,-1)
 		list+=MainBean(-1,0)
-		list+=MainBean(R.mipmap.ic_launcher,-1)
+		list+=MainBean(-1,-130)
 		return list
 	}
 }
