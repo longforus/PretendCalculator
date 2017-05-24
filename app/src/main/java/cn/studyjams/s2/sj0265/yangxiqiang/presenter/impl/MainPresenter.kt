@@ -61,31 +61,36 @@ class MainPresenter(override var view : IMainView) : IMainPresenter {
 			}
 			if (num == -130) {
 				if (!build.contains(".")) {
-					build.append(".")
+					if (build.isEmpty()) {
+						build.append(0)
+					}
+						build.append(".")
 				}
 			} else {
 				build.append(num)
 			}
 			
 			if (pos == 1) {
+				val substring = build.toString().substring(1, build.length).trim()
 				when (function) {
 					0 -> {//+
-					
+						varArr[2] = varArr[0].add(BigDecimal(substring))
 					}
 					1 -> {//-
-					
+						varArr[2] = varArr[0].subtract(BigDecimal(substring))
 					}
 					2 -> {//*
-					
+						varArr[2] = varArr[0].multiply(BigDecimal(substring))
 					}
 					3 -> {///
-						var ca = kotlin.CharArray(16)
-						build.getChars(1, build.length, ca, 0)
-						varArr[2] = varArr[0].divide(BigDecimal(String(ca).trim()))
-						buildArr[2] = StringBuilder("=").append(varArr[2])
-						view.showText(0, buildArr[2].toString())
+						varArr[2] = varArr[0].divide(BigDecimal(substring),10,BigDecimal.ROUND_DOWN)
 					}
 				}
+				buildArr[2] = StringBuilder("=").append(varArr[2])
+				while (buildArr[2].endsWith("0")||buildArr[2].endsWith(".")) {
+					buildArr[2].deleteCharAt(buildArr[2].length-1)
+				}
+				view.showText(0, buildArr[2].toString())
 			}
 			view.showText(pos, build.toString())
 		}
@@ -95,8 +100,53 @@ class MainPresenter(override var view : IMainView) : IMainPresenter {
 		when (imgId) {
 			R.mipmap.btn_pad_c_n -> clearAll()
 			R.mipmap.btn_pad_del_n -> delete()
-			R.mipmap.btn_pad_div_n -> div()
+			R.mipmap.btn_pad_div_n -> dispase(3)
+			R.mipmap.btn_pad_mul_n -> dispase(2)
+			R.mipmap.btn_pad_minus_n -> dispase(1)
+			R.mipmap.btn_pad_plus_n -> dispase(0)
+			R.mipmap.btn_pad_percent_n -> dispasePercent()
 		}
+	}
+	
+	private fun dispasePercent() {
+		if (curPos == 0) {
+			val substring = buildArr[0].toString().trim()
+			varArr[0] = BigDecimal(substring)
+			varArr[0] = varArr[0].divide(BigDecimal(100),10,BigDecimal.ROUND_DOWN)
+			buildArr[0] = StringBuilder(varArr[0].toString())
+			while (buildArr[0].endsWith("0")||buildArr[0].endsWith(".")) {
+				buildArr[0].deleteCharAt(buildArr[0].length-1)
+			}
+			view.showText(0, buildArr[0].toString())
+		}
+	}
+	
+	private var curOperator : String = "+"
+	
+	private fun dispase(s : Int) {
+		function = s
+		varArr[0] = BigDecimal(buildArr[0].toString())
+		view.showText(2, buildArr[0].toString())
+		when (function) {
+			0 -> {//+
+				curOperator = "+"
+			}
+			1 -> {//-
+				curOperator = "-"
+			}
+			2 -> {//*
+				curOperator = "x"
+			}
+			3 -> {///
+				curOperator = "÷"
+			}
+		}
+		buildArr[1].append(curOperator)
+		view.showText(1, buildArr[1].toString())
+		curPos = 1
+		buildArr[2].append("=")
+		buildArr[2].append(buildArr[0])
+		view.showText(0, buildArr[2].toString())
 	}
 	
 	private fun div() {
@@ -116,7 +166,11 @@ class MainPresenter(override var view : IMainView) : IMainPresenter {
 			val builder = buildArr[curPos]
 			builder.deleteCharAt(builder.length - 1)
 			if (builder.isEmpty()) {
-				builder.append(0)
+				if (curPos==1) {
+					builder.append(curOperator)
+				} else {
+					builder.append(0)
+				}
 			}
 			view.showText(curPos, builder.toString())
 		}
