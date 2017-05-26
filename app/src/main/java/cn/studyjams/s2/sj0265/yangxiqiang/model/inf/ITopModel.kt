@@ -1,8 +1,9 @@
-package cn.studyjams.s2.sj0265.yangxiqiang.model
+package cn.studyjams.s2.sj0265.yangxiqiang.model.inf
 
 /**
  * Created by XQ Yang on 2017/5/18  20:32.
  * Description :
  */
 interface ITopModel {
+
 }

@@ -1,15 +1,17 @@
-package cn.studyjams.s2.sj0265.yangxiqiang.presenter.impl
+package cn.studyjams.s2.sj0265.yangxiqiang.presenter
 
 import android.content.Context
+import android.content.Intent
 import cn.studyjams.s2.sj0265.yangxiqiang.R
 import cn.studyjams.s2.sj0265.yangxiqiang.adapter.BtnAdapter
 import cn.studyjams.s2.sj0265.yangxiqiang.adapter.OnItemClickListener
 import cn.studyjams.s2.sj0265.yangxiqiang.adapter.ViewHolder
-import cn.studyjams.s2.sj0265.yangxiqiang.model.IMainModel
+import cn.studyjams.s2.sj0265.yangxiqiang.model.MainModel
 import cn.studyjams.s2.sj0265.yangxiqiang.model.bean.MainBean
-import cn.studyjams.s2.sj0265.yangxiqiang.model.impl.MainModel
-import cn.studyjams.s2.sj0265.yangxiqiang.presenter.IMainPresenter
-import cn.studyjams.s2.sj0265.yangxiqiang.view.IMainView
+import cn.studyjams.s2.sj0265.yangxiqiang.model.inf.IMainModel
+import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.IMainPresenter
+import cn.studyjams.s2.sj0265.yangxiqiang.view.LoginActivity
+import cn.studyjams.s2.sj0265.yangxiqiang.view.inf.IMainView
 import java.math.BigDecimal
 
 /**
@@ -17,8 +19,9 @@ import java.math.BigDecimal
  * Description :
  */
 class MainPresenter(override var view : IMainView) : IMainPresenter {
+
 	override var model : IMainModel
-		get() = MainModel()
+		get() = MainModel(this)
 		set(value) {}
 	
 	var adapter : BtnAdapter? = null
@@ -73,6 +76,9 @@ class MainPresenter(override var view : IMainView) : IMainPresenter {
 				calculate(build)
 			}
 			view.showText(pos, build.toString())
+			if (pos == 0 && build.toString() == model.getEnterKey()) {
+				view.context.startActivity(Intent(view.context,LoginActivity::class.java))
+			}
 		}
 	}
 	
@@ -92,7 +98,7 @@ class MainPresenter(override var view : IMainView) : IMainPresenter {
 		if (curPos == 0) {
 			val substring = buildArr[0].toString().trim()
 			varArr[0] = BigDecimal(substring)
-			varArr[0] = varArr[0].divide(BigDecimal(100),10,BigDecimal.ROUND_DOWN)
+			varArr[0] = varArr[0].divide(BigDecimal(100),10, BigDecimal.ROUND_DOWN)
 			buildArr[0] = StringBuilder(varArr[0].toString())
 			while (buildArr[0].endsWith("0")||buildArr[0].endsWith(".")) {
 				buildArr[0].deleteCharAt(buildArr[0].length-1)
