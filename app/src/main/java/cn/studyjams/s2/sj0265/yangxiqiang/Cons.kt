@@ -5,3 +5,4 @@ package cn.studyjams.s2.sj0265.yangxiqiang
  * Description :
  */
 val DEFAULT_ENTER_SP_KEY ="default_enter_sp_key"
+val DERAULT_ENTER_KEY = "130520"

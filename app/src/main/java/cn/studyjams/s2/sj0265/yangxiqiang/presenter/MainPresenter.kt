@@ -1,7 +1,8 @@
 package cn.studyjams.s2.sj0265.yangxiqiang.presenter
 
 import android.content.Context
-import android.content.Intent
+import android.text.TextUtils
+import cn.studyjams.s2.sj0265.yangxiqiang.DERAULT_ENTER_KEY
 import cn.studyjams.s2.sj0265.yangxiqiang.R
 import cn.studyjams.s2.sj0265.yangxiqiang.adapter.BtnAdapter
 import cn.studyjams.s2.sj0265.yangxiqiang.adapter.OnItemClickListener
@@ -10,7 +11,6 @@ import cn.studyjams.s2.sj0265.yangxiqiang.model.MainModel
 import cn.studyjams.s2.sj0265.yangxiqiang.model.bean.MainBean
 import cn.studyjams.s2.sj0265.yangxiqiang.model.inf.IMainModel
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.IMainPresenter
-import cn.studyjams.s2.sj0265.yangxiqiang.view.LoginActivity
 import cn.studyjams.s2.sj0265.yangxiqiang.view.inf.IMainView
 import java.math.BigDecimal
 
@@ -20,6 +20,7 @@ import java.math.BigDecimal
  */
 class MainPresenter(override var view : IMainView) : IMainPresenter {
 
+	
 	override var model : IMainModel
 		get() = MainModel(this)
 		set(value) {}
@@ -29,9 +30,9 @@ class MainPresenter(override var view : IMainView) : IMainPresenter {
 	var varArr = arrayOf(BigDecimal(0), BigDecimal(0), BigDecimal(0))
 	val buildArr = arrayOf(StringBuilder(16), StringBuilder(16), StringBuilder(16))
 	var function = 0
-	
+	override var enterKey :String? = null
 	init {
-//		model = MainModel()
+//		model =
 		view.getRv().post({
 			buildArr[0].append(0)
 			val itemHeight = view.getRv().height / 5
@@ -39,6 +40,10 @@ class MainPresenter(override var view : IMainView) : IMainPresenter {
 			view.setAdapter(adapter as BtnAdapter)
 			initListener()
 		})
+		enterKey = model.getEnterKey()
+		if (TextUtils.isEmpty(enterKey)) {
+			enterKey = DERAULT_ENTER_KEY
+		}
 	}
 	
 	private fun initListener() {
@@ -76,9 +81,6 @@ class MainPresenter(override var view : IMainView) : IMainPresenter {
 				calculate(build)
 			}
 			view.showText(pos, build.toString())
-			if (pos == 0 && build.toString() == model.getEnterKey()) {
-				view.context.startActivity(Intent(view.context,LoginActivity::class.java))
-			}
 		}
 	}
 	
@@ -192,7 +194,7 @@ class MainPresenter(override var view : IMainView) : IMainPresenter {
 			}
 		}
 		buildArr[2] = StringBuilder("=").append(varArr[2])
-		while (buildArr[2].endsWith("0") || buildArr[2].endsWith(".")) {
+		while (/*buildArr[2].endsWith("0") ||*/ buildArr[2].endsWith(".")) {
 			buildArr[2].deleteCharAt(buildArr[2].length - 1)
 		}
 		view.showText(0, buildArr[2].toString())

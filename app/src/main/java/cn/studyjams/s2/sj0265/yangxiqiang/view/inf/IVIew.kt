@@ -7,5 +7,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.ITopPresenter
  * Description :
  */
 interface IVIew<P: ITopPresenter>: ITopVIew {
-	var presenter:P
+	var presenter:P?
 }

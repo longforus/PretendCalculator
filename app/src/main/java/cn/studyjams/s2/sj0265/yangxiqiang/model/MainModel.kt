@@ -3,6 +3,7 @@ package cn.studyjams.s2.sj0265.yangxiqiang.model
 import android.graphics.Color
 import cn.studyjams.s2.sj0265.yangxiqiang.DEFAULT_ENTER_SP_KEY
 import cn.studyjams.s2.sj0265.yangxiqiang.R
+import cn.studyjams.s2.sj0265.yangxiqiang.method.getString
 import cn.studyjams.s2.sj0265.yangxiqiang.model.bean.MainBean
 import cn.studyjams.s2.sj0265.yangxiqiang.model.inf.IMainModel
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.IMainPresenter
@@ -13,7 +14,7 @@ import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.IMainPresenter
  */
 class MainModel(override var presenter : IMainPresenter) : IMainModel {
 	override fun getEnterKey() : String? {
-		return getString(presenter.view.getContext(), DEFAULT_ENTER_SP_KEY)
+		return getString(presenter.view.context, DEFAULT_ENTER_SP_KEY)
 	}
 	
 	override fun getMainList() : List<MainBean> {

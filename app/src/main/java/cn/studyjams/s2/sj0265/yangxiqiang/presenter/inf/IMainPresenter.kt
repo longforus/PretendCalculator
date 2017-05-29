@@ -8,4 +8,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.view.inf.IMainView
  * Description :
  */
 interface IMainPresenter: IPresenter<IMainView, IMainModel> {
+	var enterKey:String?
 }
