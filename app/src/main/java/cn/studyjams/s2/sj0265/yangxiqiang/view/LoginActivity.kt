@@ -38,6 +38,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 	private var mProgressView : View? = null
 	private var mLoginFormView : View? = null
 	private var mAuth : FirebaseAuth? = null
+	private var  isRegister: Boolean = false
 	
 	private val onEditorActionListener = TextView.OnEditorActionListener { textView, id, keyEvent ->
 		if (id == EditorInfo.IME_NULL) {
@@ -61,21 +62,20 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 		email_register_button.setOnClickListener { attemptRegister() }
 		mLoginFormView = findViewById(R.id.login_form)
 		mProgressView = findViewById(R.id.login_progress)
-		til.isEnabled = false
 		mAuth = FirebaseAuth.getInstance()
 	
 	}
 	
 	private fun attemptRegister() {
-		if (!til.isEnabled) {
-			til.isEnabled = true
+		if (!isRegister) {
+			isRegister = true
 			til.visibility = View.VISIBLE
 			mPasswordView?.imeOptions = EditorInfo.IME_ACTION_NEXT
 			mPasswordView?.setOnEditorActionListener(null)
 			email_sign_in_button.setText(getString(R.string.action_register))
 			email_register_button.setText("Return")
 		} else {
-			til.isEnabled = false
+			isRegister = false
 			til.visibility = View.GONE
 			mPasswordView?.imeOptions = EditorInfo.IME_ACTION_UNSPECIFIED
 			mPasswordView?.setOnEditorActionListener(onEditorActionListener)
@@ -116,6 +116,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 		// Store values at the time of the login attempt.
 		val email = mEmailView!!.text.toString()
 		val password = mPasswordView!!.text.toString()
+		val password1text = password1!!.text.toString()
 		
 		var cancel = false
 		var focusView : View? = null
@@ -124,6 +125,19 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 		if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
 			mPasswordView!!.error = getString(R.string.error_invalid_password)
 			focusView = mPasswordView
+			cancel = true
+		}
+		// Check for a valid password, if the user entered one.
+		if (isRegister&&(TextUtils.isEmpty(password1text) || !isPasswordValid(password1text))) {
+			password1!!.error = getString(R.string.error_invalid_password)
+			focusView = password1
+			cancel = true
+		}
+		
+		// Check for a valid password, if the user entered one.
+		if (isRegister&&( password != password1text)) {
+			password1!!.error = getString(R.string.error_invalid_password1)
+			focusView = password1
 			cancel = true
 		}
 		
