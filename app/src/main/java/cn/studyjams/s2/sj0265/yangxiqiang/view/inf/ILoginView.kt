@@ -7,4 +7,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.ILoginPresenter
  * Description :
  */
 interface ILoginView:IVIew<ILoginPresenter> {
+	  fun  showProgress(show : Boolean)
 }

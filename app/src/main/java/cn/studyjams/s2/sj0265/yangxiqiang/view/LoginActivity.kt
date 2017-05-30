@@ -6,22 +6,18 @@ import android.annotation.TargetApi
 import android.app.Activity
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AutoCompleteTextView
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import cn.studyjams.s2.sj0265.yangxiqiang.R
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.LoginPresenter
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.ILoginPresenter
 import cn.studyjams.s2.sj0265.yangxiqiang.view.inf.ILoginView
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
-
 
 
 /**
@@ -37,12 +33,11 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 	private var mPasswordView : EditText? = null
 	private var mProgressView : View? = null
 	private var mLoginFormView : View? = null
-	private var mAuth : FirebaseAuth? = null
 	private var  isRegister: Boolean = false
 	
 	private val onEditorActionListener = TextView.OnEditorActionListener { textView, id, keyEvent ->
 		if (id == EditorInfo.IME_NULL) {
-			attemptLogin()
+			 attemptLogin()
 			return@OnEditorActionListener true
 		}
 		false
@@ -53,17 +48,15 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 		setContentView(R.layout.activity_login)
 		// Set up the login form.
 		presenter = LoginPresenter(this)
-		mEmailView = findViewById(R.id.email) as AutoCompleteTextView
-		mPasswordView = findViewById(R.id.password) as EditText
+		mEmailView = email as AutoCompleteTextView
+		mPasswordView = password as EditText
 		mPasswordView!!.setOnEditorActionListener(onEditorActionListener)
 		password1.setOnEditorActionListener(onEditorActionListener)
-		val mEmailSignInButton = findViewById(R.id.email_sign_in_button) as Button
+		val mEmailSignInButton =email_sign_in_button
 		mEmailSignInButton.setOnClickListener { attemptLogin() }
 		email_register_button.setOnClickListener { attemptRegister() }
-		mLoginFormView = findViewById(R.id.login_form)
-		mProgressView = findViewById(R.id.login_progress)
-		mAuth = FirebaseAuth.getInstance()
-	
+		mLoginFormView = login_form
+		mProgressView = login_progress
 	}
 	
 	private fun attemptRegister() {
@@ -84,23 +77,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 		}
 	}
 	
-	private fun register(email : String, password : String) {
-		mAuth?.createUserWithEmailAndPassword(email, password)?.addOnCompleteListener(this, { task ->
-			showProgress(false)
-			if (task.isSuccessful) {
-				AlertDialog.Builder(this).setTitle("Register success!").setMessage("Please remember your account and password").setPositiveButton("Ok", {
-					dialog, which ->
-					dialog.dismiss()
-					gotoContent()
-				}).create().show()
-			} else {
-				AlertDialog.Builder(this).setTitle("Register failure!").setMessage(task.exception?.message).setPositiveButton("Ok", {
-					dialog, which ->
-					dialog.dismiss()
-				}).create().show()
-			}
-		})
-	}
+
 	
 	
 	/**
@@ -160,32 +137,14 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
 			showProgress(true)
-			if (til.isEnabled) {
-				register(email,password)
+			if (isRegister) {
+				presenter?.register(email,password)
 			} else {
-				loginWithEmail(email, password)
+				presenter?.loginWithEmail(email, password)
 			}
 		}
 	}
 	
-	private fun loginWithEmail(email : String, password : String) {
-		mAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener(this@LoginActivity, { task ->
-			showProgress(false)
-			if (task.isSuccessful) {
-				gotoContent()
-			}
-		})?.addOnFailureListener(this, { exception ->
-			AlertDialog.Builder(this).setTitle("Login failure!").setMessage(exception.message.toString()).setPositiveButton("Retry", {
-				dialog, which ->
-				dialog.dismiss()
-			}).create().show()
-		})
-	}
-	
-	private fun gotoContent() {
-		//去主界面
-		
-	}
 	
 	private fun isEmailValid(email : String) : Boolean {
 		return email.contains("@")
@@ -199,7 +158,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 	 * Shows the progress UI and hides the login form.
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-	private fun showProgress(show : Boolean) {
+	override fun showProgress(show : Boolean) {
 		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
 		// for very easy animations. If available, use these APIs to fade-in
 		// the progress spinner.
