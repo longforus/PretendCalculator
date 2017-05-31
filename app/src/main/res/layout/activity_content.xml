@@ -1,15 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cn.studyjams.s2.sj0265.yangxiqiang.view.ContentActivity"
     >
-<TextView
-    android:layout_width="match_parent"
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/tb"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      />
+ <android.support.v4.widget.SwipeRefreshLayout
+     android:layout_marginTop="?attr/actionBarSize"
+     android:layout_width="match_parent"
+     android:id="@+id/srl"
+     android:layout_height="match_parent"
+     >
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       >
+     <ImageView
+         android:id="@+id/iv"
+         android:layout_width="100dp"
+         android:layout_height="100dp"
+         android:src="@mipmap/kong_error"
+         android:layout_centerInParent="true"
+         />
+     <TextView
+         android:layout_below="@id/iv"
+         android:id="@+id/tv"
+         android:layout_centerHorizontal="true"
+         android:layout_width="wrap_content"
+         android:text="Nothing at all  !"
+         android:layout_height="wrap_content"
+         android:textColor="@color/colorSecondaryText"
+         />
+     <android.support.v7.widget.RecyclerView
+         android:id="@+id/rv"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:visibility="gone"
+         />
+   </RelativeLayout>
+ </android.support.v4.widget.SwipeRefreshLayout>
+<android.support.design.widget.FloatingActionButton
+    android:id="@+id/fab"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="this content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="12dp"
+    android:src="@mipmap/diary_add"
     />
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

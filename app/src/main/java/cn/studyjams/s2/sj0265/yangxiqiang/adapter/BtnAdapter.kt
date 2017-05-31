@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.item_main.view.*
  * Description :
  */
 class BtnAdapter(val context : Context, var dataList : List<MainBean>, val itemHeight : Int) : RecyclerView.Adapter<ViewHolder>() {
-	val TAG = "BtnAdapter"
 	var onClickListener: OnItemClickListener? = null
 	override fun onCreateViewHolder(parent : ViewGroup?, viewType : Int) : ViewHolder {
 		val view = LayoutInflater.from(context).inflate(R.layout.item_main, parent, false)

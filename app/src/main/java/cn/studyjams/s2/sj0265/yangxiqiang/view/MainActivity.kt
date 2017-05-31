@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), IMainView {
 		setContentView(R.layout.activity_main)
 		presenter = MainPresenter(this@MainActivity)
 		tvArr = arrayOf(tv1,tv2, tv3)
-	
+		startActivity(Intent(context,ContentActivity::class.java))
 	}
 	
 }

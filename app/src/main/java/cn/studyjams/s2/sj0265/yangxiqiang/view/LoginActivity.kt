@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
 import android.app.Activity
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -14,9 +15,12 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.TextView
 import cn.studyjams.s2.sj0265.yangxiqiang.R
+import cn.studyjams.s2.sj0265.yangxiqiang.method.toastShort
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.LoginPresenter
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.ILoginPresenter
 import cn.studyjams.s2.sj0265.yangxiqiang.view.inf.ILoginView
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.common.ConnectionResult
 import kotlinx.android.synthetic.main.activity_login.*
 
 
@@ -24,6 +28,8 @@ import kotlinx.android.synthetic.main.activity_login.*
  * A login screen that offers login via email/password.
  */
 class LoginActivity : AppCompatActivity(), ILoginView {
+
+	
 	override var presenter : ILoginPresenter? = null
 	override val context : Activity
 		get() = this
@@ -33,11 +39,12 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 	private var mPasswordView : EditText? = null
 	private var mProgressView : View? = null
 	private var mLoginFormView : View? = null
-	private var  isRegister: Boolean = false
+	private var isRegister : Boolean = false
+	
 	
 	private val onEditorActionListener = TextView.OnEditorActionListener { textView, id, keyEvent ->
 		if (id == EditorInfo.IME_NULL) {
-			 attemptLogin()
+			attemptLogin()
 			return@OnEditorActionListener true
 		}
 		false
@@ -52,9 +59,12 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 		mPasswordView = password as EditText
 		mPasswordView!!.setOnEditorActionListener(onEditorActionListener)
 		password1.setOnEditorActionListener(onEditorActionListener)
-		val mEmailSignInButton =email_sign_in_button
+		val mEmailSignInButton = email_sign_in_button
 		mEmailSignInButton.setOnClickListener { attemptLogin() }
 		email_register_button.setOnClickListener { attemptRegister() }
+		btn_google_signin.setOnClickListener {
+			(presenter as LoginPresenter).onGoogleLogin()
+		}
 		mLoginFormView = login_form
 		mProgressView = login_progress
 	}
@@ -77,9 +87,23 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 		}
 	}
 	
-
+	override fun onConnectionFailed(p0 : ConnectionResult) {
+			toastShort(p0.errorMessage as String)
+	}
 	
-	
+	override fun onActivityResult(requestCode : Int, resultCode : Int, data : Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+		when (requestCode) {
+			presenter?.REQUEST_LOGIN->{
+				val signInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+				if (signInResult.isSuccess) {
+					presenter?.gotoContent()
+				} else {
+					toastShort("login failure")
+				}
+			}
+		}
+	}
 	/**
 	 * Attempts to sign in or register the account specified by the login form.
 	 * If there are form errors (invalid email, missing fields, etc.), the
@@ -105,14 +129,14 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 			cancel = true
 		}
 		// Check for a valid password, if the user entered one.
-		if (isRegister&&(TextUtils.isEmpty(password1text) || !isPasswordValid(password1text))) {
+		if (isRegister && (TextUtils.isEmpty(password1text) || !isPasswordValid(password1text))) {
 			password1!!.error = getString(R.string.error_invalid_password)
 			focusView = password1
 			cancel = true
 		}
 		
 		// Check for a valid password, if the user entered one.
-		if (isRegister&&( password != password1text)) {
+		if (isRegister && (password != password1text)) {
 			password1!!.error = getString(R.string.error_invalid_password1)
 			focusView = password1
 			cancel = true
@@ -138,7 +162,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 			// perform the user login attempt.
 			showProgress(true)
 			if (isRegister) {
-				presenter?.register(email,password)
+				presenter?.register(email, password)
 			} else {
 				presenter?.loginWithEmail(email, password)
 			}

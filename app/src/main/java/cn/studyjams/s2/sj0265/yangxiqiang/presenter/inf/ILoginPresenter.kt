@@ -8,6 +8,9 @@ import cn.studyjams.s2.sj0265.yangxiqiang.view.inf.ILoginView
  * Description :
  */
 interface ILoginPresenter:IPresenter<ILoginView,ILoginModel> {
+	val REQUEST_LOGIN : Int
 	fun register(email : String, password : String)
 	fun loginWithEmail(email : String, password : String)
+	fun onGoogleLogin()
+	fun gotoContent()
 }

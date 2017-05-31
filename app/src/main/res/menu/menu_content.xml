@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+  <item android:id="@+id/action_add"
+      android:title="Add"
+      android:orderInCategory="80"
+      android:icon="@mipmap/ic_shape_square_plus"
+      app:showAsAction="ifRoom" />
+
+  <item android:id="@+id/action_search"
+      android:title="Srarch"
+      android:orderInCategory="90"
+      android:icon="@mipmap/ic_magnify"
+      app:showAsAction="ifRoom" />
+
+  <item android:id="@+id/action_settings"
+      android:title="Set Enter Key"
+      android:orderInCategory="100"
+      android:icon="@mipmap/ic_key"
+      app:showAsAction="never"/>
+</menu>

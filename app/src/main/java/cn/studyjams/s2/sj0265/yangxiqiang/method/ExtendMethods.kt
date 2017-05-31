@@ -1,7 +1,9 @@
 package cn.studyjams.s2.sj0265.yangxiqiang.method
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.widget.Toast
 import cn.studyjams.s2.sj0265.yangxiqiang.model.inf.ITopModel
 
 /**
@@ -15,5 +17,9 @@ fun ITopModel.getString(context : Context,key:String):String?{
 
 fun ITopModel.getDefaultSP(context : Context): SharedPreferences {
 	return  context.getSharedPreferences(DEFAULT_SP_NAME,Context.MODE_PRIVATE)
+}
+
+fun Activity.toastShort(msg : String) {
+	Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
 }
 
