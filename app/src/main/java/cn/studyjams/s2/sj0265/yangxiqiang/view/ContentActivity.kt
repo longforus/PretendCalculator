@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.text.InputType
 import android.view.KeyEvent
 import android.view.Menu
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import cn.studyjams.s2.sj0265.yangxiqiang.R
@@ -19,6 +21,15 @@ import kotlinx.android.synthetic.main.activity_content.*
 
 
 class ContentActivity : AppCompatActivity(), IContentView {
+	var showRv = false
+	override fun showRv() {
+		if (!showRv) {
+			iv.visibility = View.GONE
+			tv.visibility = View.GONE
+			rv.visibility = View.VISIBLE
+			showRv = true
+		}
+	}
 	
 	override val context : Activity
 		get() = this
@@ -32,11 +43,11 @@ class ContentActivity : AppCompatActivity(), IContentView {
 		initTb()
 		initEvent()
 		initData()
-		
 	}
 	
 	private fun initData() {
-	
+		rv.adapter = presenter?.getAdapter()
+		rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 	}
 	
 	private fun initEvent() {
@@ -86,9 +97,11 @@ class ContentActivity : AppCompatActivity(), IContentView {
 		menuInflater.inflate(R.menu.menu_content, menu)
 		return true
 	}
+	
 	override fun showSaveSuccess() {
 		Snackbar.make(cl, "Enter key save success,Remember it", Snackbar.LENGTH_INDEFINITE).setAction("close", { v -> }).show()
 	}
+	
 	override fun onKeyDown(keyCode : Int, event : KeyEvent) : Boolean {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
 			if (System.currentTimeMillis() - exitTime > 2000) {

@@ -19,6 +19,21 @@ abstract class BaseAdapter<D,H:BaseHolder<D>>(val context : Context, var dataLis
 		return dataList.size
 	}
 	
+	fun addData(data : D?) {
+		if (data!=null) {
+			val indexOf = dataList.indexOf(data)
+			if (indexOf>=0) {
+				val mutableList = dataList as MutableList
+				mutableList.set(indexOf,data)
+				notifyItemChanged(indexOf)
+			} else {
+				dataList+=data
+				notifyItemInserted(dataList.size-1)
+			}
+		}
+	}
+	
+	
 	interface OnItemClickListener<D,H:BaseHolder<D>>{
 		fun onItemClick(holder : H?, bean : D, position : Int)
 	}

@@ -6,7 +6,6 @@ import cn.studyjams.s2.sj0265.yangxiqiang.DERAULT_ENTER_KEY
 import cn.studyjams.s2.sj0265.yangxiqiang.R
 import cn.studyjams.s2.sj0265.yangxiqiang.adapter.BaseAdapter
 import cn.studyjams.s2.sj0265.yangxiqiang.adapter.BtnAdapter
-import cn.studyjams.s2.sj0265.yangxiqiang.adapter.ViewHolder
 import cn.studyjams.s2.sj0265.yangxiqiang.model.MainModel
 import cn.studyjams.s2.sj0265.yangxiqiang.model.bean.MainBean
 import cn.studyjams.s2.sj0265.yangxiqiang.model.inf.IMainModel
@@ -50,8 +49,8 @@ class MainPresenter(override var view : IMainView) : IMainPresenter {
 	}
 	
 	private fun initListener() {
-		adapter?.onClickListener = object : BaseAdapter.OnItemClickListener<MainBean,ViewHolder> {
-			override fun onItemClick(holder : ViewHolder?, bean : MainBean, position : Int) {
+		adapter?.onClickListener = object : BaseAdapter.OnItemClickListener<MainBean, BtnAdapter.ViewHolder> {
+			override fun onItemClick(holder : BtnAdapter.ViewHolder?, bean : MainBean, position : Int) {
 				if (bean.imgId != -1) onOperatorClick(bean.imgId) else onNumClick(bean.num)
 			}
 		}

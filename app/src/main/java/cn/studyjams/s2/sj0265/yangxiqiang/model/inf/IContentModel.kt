@@ -8,4 +8,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.IContentPresenter
  */
 interface IContentModel :IModel<IContentPresenter>{
 	fun saveEnterKey(key : String)
+	fun setListener()
 }

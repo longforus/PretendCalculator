@@ -7,4 +7,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.IEditPresenter
  * Description :
  */
 interface IEditView:IVIew<IEditPresenter> {
+	fun finish()
 }

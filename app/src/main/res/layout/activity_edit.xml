@@ -23,7 +23,7 @@
       android:orientation="vertical"
       >
     <EditText
-        android:id="@+id/et"
+        android:id="@+id/et_edit"
         android:hint="Record your secret"
         android:gravity="start"
         android:textSize="36sp"
@@ -40,7 +40,7 @@
   </LinearLayout>
 </ScrollView>
   <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab"
+      android:id="@+id/fab_edit"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|end"

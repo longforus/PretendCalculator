@@ -11,10 +11,10 @@
       app:showAsAction="ifRoom" />
 
   <item android:id="@+id/action_search"
-      android:title="Srarch"
-      android:orderInCategory="90"
-      android:icon="@mipmap/ic_magnify"
-      app:showAsAction="ifRoom" />
+    android:title="Srarch"
+    android:orderInCategory="90"
+    android:icon="@mipmap/ic_magnify"
+    app:showAsAction="ifRoom" />
 
   <item android:id="@+id/action_settings"
       android:title="Set Enter Key"

@@ -1,5 +1,6 @@
 package cn.studyjams.s2.sj0265.yangxiqiang.model.inf
 
+import cn.studyjams.s2.sj0265.yangxiqiang.model.bean.DataBean
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.IEditPresenter
 
 /**
@@ -7,4 +8,6 @@ import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.IEditPresenter
  * Description :
  */
 interface IEditModel:IModel<IEditPresenter> {
+	fun saveContent(trim : DataBean)
+	fun modify(bean : DataBean)
 }

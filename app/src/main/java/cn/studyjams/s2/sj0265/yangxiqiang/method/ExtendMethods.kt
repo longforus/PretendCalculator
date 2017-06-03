@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 import android.text.TextUtils
 import android.widget.Toast
 import cn.studyjams.s2.sj0265.yangxiqiang.model.inf.ITopModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by XQ Yang on 2017/5/26  19:38.
@@ -29,5 +31,9 @@ fun Activity.toastShort(msg : String) {
 
 fun CharSequence.empty():Boolean{
 	return TextUtils.isEmpty(this)
+}
+fun Date.format():String{
+	val format = SimpleDateFormat("yyyy-MM-dd  HH:mm:ss")
+	return format.format(this)
 }
 

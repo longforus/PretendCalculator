@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_main.view.*
  * Created by XQ Yang on 2017/5/18  20:02.
  * Description :
  */
-class BtnAdapter(context : Context, dataList : List<MainBean>, val itemHeight : Int) : BaseAdapter<MainBean, ViewHolder>(context, dataList) {
+class BtnAdapter(context : Context, dataList : List<MainBean>, val itemHeight : Int) : BaseAdapter<MainBean, BtnAdapter.ViewHolder>(context, dataList) {
 	
 	override fun onCreateViewHolder(parent : ViewGroup?, viewType : Int) : ViewHolder {
 		val view = LayoutInflater.from(context).inflate(R.layout.item_main, parent, false)
@@ -28,23 +28,23 @@ class BtnAdapter(context : Context, dataList : List<MainBean>, val itemHeight : 
 	override fun getItemViewType(position : Int) : Int {
 		return if (dataList[position].imgId == R.mipmap.btn_pad_equal_n) 1 else super.getItemViewType(position)
 	}
-}
-
-
-class ViewHolder(view : View) : BaseHolder<MainBean>(view) {
-	override fun bind(item : MainBean, pos : Int) {
-		if (item.imgId > 0) {
-			itemView.iv.visibility = View.VISIBLE
-			itemView.tv.visibility = View.GONE
-			itemView.iv.setImageResource(item.imgId)
-		} else {
-			itemView.iv.visibility = View.GONE
-			itemView.tv.visibility = View.VISIBLE
-			itemView.tv.text = if (item.num == -130) "." else item.num.toString()
+	inner class ViewHolder(view : View) : BaseHolder<MainBean>(view) {
+		override fun bind(item : MainBean, pos : Int) {
+			if (item.imgId > 0) {
+				itemView.iv.visibility = View.VISIBLE
+				itemView.tv.visibility = View.GONE
+				itemView.iv.setImageResource(item.imgId)
+			} else {
+				itemView.iv.visibility = View.GONE
+				itemView.tv.visibility = View.VISIBLE
+				itemView.tv.text = if (item.num == -130) "." else item.num.toString()
+			}
+			if (item.backColor != 0) {
+				itemView.setBackgroundColor(item.backColor)
+			}
 		}
-		if (item.backColor != 0) {
-			itemView.setBackgroundColor(item.backColor)
-		}
+		
 	}
-	
 }
+
+

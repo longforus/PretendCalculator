@@ -18,7 +18,7 @@ class MainModel(override var presenter : IMainPresenter) : IMainModel {
 	}
 	
 	override fun getMainList() : List<MainBean> {
-		var list : List<MainBean> = ArrayList()
+		var list : List<MainBean> = listOf()
 		list += MainBean(R.mipmap.btn_pad_c_n, -1)
 		list += MainBean(R.mipmap.btn_pad_del_n, -1)
 		list += MainBean(R.mipmap.btn_pad_div_n, -1)
