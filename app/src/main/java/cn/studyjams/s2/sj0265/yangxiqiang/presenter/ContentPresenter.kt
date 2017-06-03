@@ -13,7 +13,7 @@ import cn.studyjams.s2.sj0265.yangxiqiang.view.inf.IContentView
 class ContentPresenter(override var view : IContentView) :IContentPresenter{
 	override fun saveEnterKey(key : String) {
 		if (!key.empty()) {
-			model.saveEnterKey(key)
+			model.saveEnterKey(if (key.length>16) key.substring(0,16) else key)
 			view.showSaveSuccess()
 		}
 	}

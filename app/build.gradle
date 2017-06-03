@@ -36,6 +36,7 @@ dependencies {
   compile 'com.google.android.gms:play-services-auth:10.2.6'
   compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
   compile 'com.android.support:design:25.3.1'
+  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
-apply plugin: 'com.google.gms.google-services' //操你妈  要放在bottom才行
+apply plugin: 'com.google.gms.google-services' //操  要放在bottom才行

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.studyjams.s2.sj0265.yangxiqiang.view.ContentActivity"
+    >
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/tb"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      />
+<ScrollView
+    android:layout_marginTop="?attr/actionBarSize"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      >
+    <EditText
+        android:id="@+id/et"
+        android:hint="Record your secret"
+        android:gravity="start"
+        android:textSize="36sp"
+        android:background="@null"
+        android:minLines="8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider"
+        />
+  </LinearLayout>
+</ScrollView>
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:layout_margin="12dp"
+      android:src="@mipmap/ic_check"
+      />
+</android.support.design.widget.CoordinatorLayout>
