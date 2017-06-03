@@ -37,8 +37,6 @@ class BtnAdapter(val context : Context, var dataList : List<MainBean>, val itemH
 	override fun getItemViewType(position : Int) : Int {
 		return	if (dataList[position].imgId==R.mipmap.btn_pad_equal_n) 1 else super.getItemViewType(position)
 	}
-	
-	
 }
 
 

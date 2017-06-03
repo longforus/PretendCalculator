@@ -8,4 +8,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.view.inf.IContentView
  * Description :
  */
 interface IContentPresenter:IPresenter<IContentView,IContentModel> {
+	fun saveEnterKey(key : String)
 }

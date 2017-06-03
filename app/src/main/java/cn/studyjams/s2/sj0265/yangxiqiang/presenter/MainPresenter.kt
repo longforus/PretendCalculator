@@ -19,7 +19,10 @@ import java.math.BigDecimal
  * Description :
  */
 class MainPresenter(override var view : IMainView) : IMainPresenter {
-
+	
+	override fun clear() {
+		clearAll()
+	}
 	
 	override var model : IMainModel
 		get() = MainModel(this)

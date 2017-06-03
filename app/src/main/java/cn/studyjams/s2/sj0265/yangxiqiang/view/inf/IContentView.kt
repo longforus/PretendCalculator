@@ -7,4 +7,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.IContentPresenter
  * Description :
  */
 interface IContentView:IVIew<IContentPresenter> {
+	fun showSaveSuccess()
 }

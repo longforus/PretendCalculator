@@ -22,10 +22,13 @@ class MainActivity : AppCompatActivity(), IMainView {
 	var tvArr : Array<TextView>? = null
 	
 	override fun showText(pos : Int, toString : String) {
-		if (pos == 0 && toString.contains(presenter?.enterKey as String,true)) {
-			startActivity(Intent(context,LoginActivity::class.java))
-		}
+		if (pos == 0 && toString.contains(presenter?.enterKey as String, true)) {
+			tv2.postDelayed({presenter?.clear()},100)
+//			startActivity(Intent(context,LoginActivity::class.java))
+			startActivity(Intent(context, ContentActivity::class.java))
+		} else {
 		tvArr?.get(pos)?.text = toString
+		}
 	}
 	
 	override fun getRv() : RecyclerView {
@@ -33,7 +36,7 @@ class MainActivity : AppCompatActivity(), IMainView {
 	}
 	
 	override fun setAdapter(adapter : BtnAdapter) {
-	rv_btns.adapter = adapter
+		rv_btns.adapter = adapter
 		rv_btns.layoutManager = StaggeredGridLayoutManager(4, GridLayoutManager.VERTICAL)
 	}
 	
@@ -44,7 +47,7 @@ class MainActivity : AppCompatActivity(), IMainView {
 		setContentView(R.layout.activity_main)
 		presenter = MainPresenter(this@MainActivity)
 		tvArr = arrayOf(tv1,tv2, tv3)
-		startActivity(Intent(context,ContentActivity::class.java))
+//		startActivity(Intent(context,ContentActivity::class.java))
 	}
 	
 }

@@ -9,4 +9,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.view.inf.IMainView
  */
 interface IMainPresenter: IPresenter<IMainView, IMainModel> {
 	var enterKey:String?
+	fun clear()
 }
