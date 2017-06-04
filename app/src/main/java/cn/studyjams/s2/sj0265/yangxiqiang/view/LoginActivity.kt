@@ -28,9 +28,11 @@ import kotlinx.android.synthetic.main.activity_login.*
  * A login screen that offers login via email/password.
  */
 class LoginActivity : AppCompatActivity(), ILoginView {
-
+	override var presenter : ILoginPresenter?
+		get() =  LoginPresenter(this)
+		set(value) {}
 	
-	override var presenter : ILoginPresenter? = null
+	
 	override val context : Activity
 		get() = this
 	
@@ -54,7 +56,6 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_login)
 		// Set up the login form.
-		presenter = LoginPresenter(this)
 		mEmailView = email as AutoCompleteTextView
 		mPasswordView = password as EditText
 		mPasswordView!!.setOnEditorActionListener(onEditorActionListener)
@@ -62,6 +63,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 		val mEmailSignInButton = email_sign_in_button
 		mEmailSignInButton.setOnClickListener { attemptLogin() }
 		email_register_button.setOnClickListener { attemptRegister() }
+		btn_fp.setOnClickListener { presenter?.sendPasswordResetEmail(email.text.toString().trim()) }
 		btn_google_signin.setOnClickListener {
 			(presenter as LoginPresenter).onGoogleLogin()
 		}
@@ -99,11 +101,12 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 				if (signInResult.isSuccess) {
 					presenter?.gotoContent()
 				} else {
-					toastShort("login failure")
+					toastShort("Login Failure")
 				}
 			}
 		}
 	}
+	
 	/**
 	 * Attempts to sign in or register the account specified by the login form.
 	 * If there are form errors (invalid email, missing fields, etc.), the

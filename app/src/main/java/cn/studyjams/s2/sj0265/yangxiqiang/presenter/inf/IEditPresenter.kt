@@ -10,4 +10,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.view.inf.IEditView
  */
 interface IEditPresenter :IPresenter<IEditView, IEditModel>{
 	fun saveContent(bean : DataBean?, trim1 : String)
+	fun deleteContent(bean : DataBean?)
 }

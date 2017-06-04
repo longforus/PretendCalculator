@@ -10,4 +10,5 @@ import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.IEditPresenter
 interface IEditModel:IModel<IEditPresenter> {
 	fun saveContent(trim : DataBean)
 	fun modify(bean : DataBean)
+	fun remove(bean : DataBean?)
 }

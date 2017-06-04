@@ -3,6 +3,8 @@ package cn.studyjams.s2.sj0265.yangxiqiang.presenter
 import android.content.Intent
 import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AlertDialog
+import android.widget.Toast
+import cn.studyjams.s2.sj0265.yangxiqiang.method.empty
 import cn.studyjams.s2.sj0265.yangxiqiang.model.LoginModel
 import cn.studyjams.s2.sj0265.yangxiqiang.model.inf.ILoginModel
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.ILoginPresenter
@@ -18,6 +20,20 @@ import com.google.firebase.auth.FirebaseAuth
  * Description :
  */
 class LoginPresenter(override var view : ILoginView) :ILoginPresenter {
+	override fun sendPasswordResetEmail(mail : String) {
+		if (!mail.empty()) {
+			FirebaseAuth.getInstance().sendPasswordResetEmail(mail).addOnCompleteListener {
+				Toast.makeText(view.context,"Password Reset Email Send Success",Toast.LENGTH_SHORT).show()
+			}.addOnFailureListener {
+				Toast.makeText(view.context,"Password Reset Email Send Failure",Toast.LENGTH_SHORT).show()
+			}
+		} else {
+			Toast.makeText(view.context,"Email is empty!",Toast.LENGTH_SHORT).show()
+		}
+	}
+	
+	
+	
 	override val REQUEST_LOGIN : Int
 		get() = 1315
 	

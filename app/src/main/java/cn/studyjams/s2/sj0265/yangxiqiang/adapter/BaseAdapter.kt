@@ -37,6 +37,13 @@ abstract class BaseAdapter<D,H:BaseHolder<D>>(val context : Context, var dataLis
 	interface OnItemClickListener<D,H:BaseHolder<D>>{
 		fun onItemClick(holder : H?, bean : D, position : Int)
 	}
+	
+	fun remove(bean : D) {
+		val mutableList = dataList as MutableList
+		val indexOf = mutableList.indexOf(bean)
+		mutableList.removeAt(indexOf)
+		notifyItemRemoved(indexOf)
+	}
 }
 
 

@@ -14,6 +14,17 @@ import java.util.*
  * Description :
  */
 class EditModel(override var presenter : IEditPresenter) : IEditModel {
+	
+	override fun remove(bean : DataBean?) {
+		if (!(bean?.key?.empty())!!) {
+			try {
+				database.getReference("/"+FirebaseAuth.getInstance().currentUser?.uid+"/"+bean.key).removeValue()
+			} catch(e : Exception) {
+				e.printStackTrace()
+			}
+		}
+	}
+	
 	val database : FirebaseDatabase = FirebaseDatabase.getInstance()
 	val reference = database.getReference(FirebaseAuth.getInstance().currentUser?.uid)
 	

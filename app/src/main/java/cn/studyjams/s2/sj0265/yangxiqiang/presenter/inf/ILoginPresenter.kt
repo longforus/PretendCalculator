@@ -13,4 +13,5 @@ interface ILoginPresenter:IPresenter<ILoginView,ILoginModel> {
 	fun loginWithEmail(email : String, password : String)
 	fun onGoogleLogin()
 	fun gotoContent()
+	fun sendPasswordResetEmail(mail : String)
 }

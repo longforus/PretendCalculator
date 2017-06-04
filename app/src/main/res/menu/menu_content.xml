@@ -10,15 +10,14 @@
       android:icon="@mipmap/ic_shape_square_plus"
       app:showAsAction="ifRoom" />
 
-  <item android:id="@+id/action_search"
-    android:title="Srarch"
+  <item android:id="@+id/action_modify"
+    android:title="Modify Password"
     android:orderInCategory="90"
-    android:icon="@mipmap/ic_magnify"
-    app:showAsAction="ifRoom" />
+      android:icon="@mipmap/ic_key"
+      app:showAsAction="ifRoom" />
 
   <item android:id="@+id/action_settings"
       android:title="Set Enter Key"
       android:orderInCategory="100"
-      android:icon="@mipmap/ic_key"
       app:showAsAction="never"/>
 </menu>

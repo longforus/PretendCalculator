@@ -15,4 +15,6 @@ interface IContentPresenter:IPresenter<IContentView,IContentModel> {
 	fun getAdapter() : BaseAdapter<DataBean,ContentAdapter.ViewHolder>
 	fun addData(value : DataBean?)
 	fun setData(bean : DataBean?)
+	fun  upDatePassword(trim : String, trim1 : String):Boolean
+	fun remove(bean : DataBean?)
 }

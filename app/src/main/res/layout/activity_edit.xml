@@ -7,7 +7,7 @@
     tools:context="cn.studyjams.s2.sj0265.yangxiqiang.view.ContentActivity"
     >
   <android.support.v7.widget.Toolbar
-      android:id="@+id/tb"
+      android:id="@+id/tb_edit"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:background="?attr/colorPrimary"

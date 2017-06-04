@@ -17,11 +17,20 @@ import cn.studyjams.s2.sj0265.yangxiqiang.R
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.ContentPresenter
 import cn.studyjams.s2.sj0265.yangxiqiang.presenter.inf.IContentPresenter
 import cn.studyjams.s2.sj0265.yangxiqiang.view.inf.IContentView
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_content.*
+import kotlinx.android.synthetic.main.dialog_modify_password.view.*
 
 
 class ContentActivity : AppCompatActivity(), IContentView {
+	override val context : Activity
+		get() = this
+	override var presenter : IContentPresenter?
+		get() = ContentPresenter(this)
+		set(value) {}
+	private var exitTime : Long = 0
 	var showRv = false
+	
 	override fun showRv() {
 		if (!showRv) {
 			iv.visibility = View.GONE
@@ -31,12 +40,6 @@ class ContentActivity : AppCompatActivity(), IContentView {
 		}
 	}
 	
-	override val context : Activity
-		get() = this
-	override var presenter : IContentPresenter?
-		get() = ContentPresenter(this)
-		set(value) {}
-	private var exitTime : Long = 0
 	override fun onCreate(savedInstanceState : Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_content)
@@ -57,8 +60,10 @@ class ContentActivity : AppCompatActivity(), IContentView {
 					gotoNew()
 					return@setOnMenuItemClickListener true
 				}
-				R.id.action_search ->
+				R.id.action_modify -> {
+					showModifyDialog()
 					return@setOnMenuItemClickListener true
+				}
 				R.id.action_settings -> {
 					showSetDialog()
 					return@setOnMenuItemClickListener true
@@ -69,6 +74,16 @@ class ContentActivity : AppCompatActivity(), IContentView {
 		}
 		fab.setOnClickListener { gotoNew() }
 		tb.setNavigationOnClickListener { finish() }
+	}
+	
+	private fun showModifyDialog() {
+		val view = layoutInflater.inflate(R.layout.dialog_modify_password, null)
+		AlertDialog.Builder(this).setTitle("Modify Password").setView(view).setPositiveButton("Ok", { dialog, which ->
+			if (presenter?.upDatePassword(view.et1.text.toString().trim(), view.et2.text.toString
+			().trim()) as Boolean) {
+				dialog.dismiss()
+			}
+		}).setNegativeButton("Cancel", { dialog, which -> dialog.dismiss() }).create().show()
 	}
 	
 	private fun initTb() {
@@ -98,8 +113,13 @@ class ContentActivity : AppCompatActivity(), IContentView {
 		return true
 	}
 	
-	override fun showSaveSuccess() {
-		Snackbar.make(cl, "Enter key save success,Remember it", Snackbar.LENGTH_INDEFINITE).setAction("close", { v -> }).show()
+	override fun showSnackBar(msg:String) {
+		Snackbar.make(cl, msg, Snackbar.LENGTH_INDEFINITE).setAction("close", { v -> }).show()
+	}
+	
+	override fun onDestroy() {
+		super.onDestroy()
+		FirebaseAuth.getInstance().signOut()
 	}
 	
 	override fun onKeyDown(keyCode : Int, event : KeyEvent) : Boolean {

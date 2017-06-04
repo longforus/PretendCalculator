@@ -15,6 +15,11 @@ import java.util.*
  * Description :
  */
 class EditPresenter(override var view : IEditView) :IEditPresenter , DatabaseReference.CompletionListener{
+	
+	override fun deleteContent(bean : DataBean?) {
+		 model.remove(bean)
+	}
+	
 	override fun saveContent(bean : DataBean?, trim : String) {
 		if (!trim.empty()) {
 			if (bean==null) {

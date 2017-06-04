@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 class ContentModel(override var presenter : IContentPresenter) :IContentModel , ChildEventListener {
 	
 	override fun onChildMoved(p0 : DataSnapshot?, p1 : String?) {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	
 	}
 	
 	override fun onChildChanged(p0 : DataSnapshot?, p1 : String?) {
@@ -28,14 +28,16 @@ class ContentModel(override var presenter : IContentPresenter) :IContentModel , 
 	}
 	
 	override fun onChildAdded(p0 : DataSnapshot?, p1 : String?) {
-//		presenter.addData(p0?.getValue(DataBean::class.java))
 		val bean = p0?.getValue(DataBean())
 		bean?.key = p0?.key
 		presenter.addData(bean)
 	}
 	
 	override fun onChildRemoved(p0 : DataSnapshot?) {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		val bean = p0?.getValue(DataBean())
+		bean?.key = p0?.key
+		presenter.remove(bean)
+		presenter.view.showSnackBar("Delete Success")
 	}
 	
 	
