@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.studyjams.s2.sj0265.yangxiqiang">
 
-  <!-- To auto-complete the email text field in the login form with the user's emails -->
-  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-  <uses-permission android:name="android.permission.READ_PROFILE"/>
-  <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
   <application
       android:name=".MyApplication"
@@ -26,11 +22,11 @@
     </activity>
     <activity
         android:name=".view.LoginActivity"
-        android:label="@string/title_activity_login">
+        android:label="@string/title_activity_login" android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".view.ContentActivity">
+    <activity android:name=".view.ContentActivity" android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".view.EditActivity">
+    <activity android:name=".view.EditActivity" android:screenOrientation="portrait">
     </activity>
   </application>
 
